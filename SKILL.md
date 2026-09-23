@@ -59,6 +59,30 @@ This guidance is engine-agnostic and can serve Three.js, React Three Fiber, Baby
 - Plan LODs for large environments or repeated props.
 - Keep texture resolution proportional to on-screen use, not source-art ambition.
 
+## Agent-Ready Rules
+
+Beyond production quality, 3D assets consumed by an agent workflow must be "agent-ready" (not just "production-ready"):
+
+1. **Divisible, not monolithic**: prefer models that can be split into parts an agent can select and edit later (separate meshes for replaceable components), rather than one fused mesh.
+2. **Meaningful hierarchy names**: an agent needs stable, semantic node names to target a part by name ("fan_grill", "base") instead of `Cube.017`. This is a prerequisite for natural-language editing and parameterized adjustment.
+3. **Parametric over baked where possible**: keep materials, transforms, and dimensions adjustable; bake only what must be final. An agent can then change a part's color, size, or material without regenerating the whole asset.
+4. **Callable by other agents**: prefer assets/outputs that can be consumed through a tool/MCP interface, not only a GUI export button.
+
+Division of labor when an agent is the caller:
+- **General model** (task understanding, decomposition, mechanical/industrial parts via code + primitives) — "figures out what to do".
+- **Specialized 3D model** (organic/curved, dense-detail objects: humans, animals, complex props) — "makes the complex model well".
+Pick the right path per asset type, rather than forcing one tool for everything.
+
+### Agent-Ready 落地轮子（开源，已核实）
+
+把上面的抽象原则落到具体开源工具（对应「Agent-Ready」三层）：
+
+- **可拆分/分件** → [Hyper3D BANG Parts Skill](https://github.com/DeemosTech/rodin3d-bang-skills)：单图/提示词 → Rodin Gen-2 生成源资产 → BANG 智能分件 → 下载分段零件（glb/usdz/fbx/obj/stl）+ `manifest.json` 记录每 part 的 UUID 与路径。
+- **agent 操控 Blender + 生 3D** → [BlenderMCP + Rodin 集成](https://github.com/DeemosTech/blender-mcp-rodin-integration)：MCP 让 agent 直接操控 Blender（建/改对象、材质、执行 Python）+ 经 Hyper3D Rodin 生成 3D。
+- **agent 调生成** → [Rodin MCP Server](https://antigravity.codes/mcp/rodin)：经 MCP 描述需求 → agent 调 Rodin 生成 → 查进度 → 取回结果，把 3D 生成接入更长的 agent 任务链。
+
+使用原则：本机是「DSH 单机环境」，这些轮子需 API key（Hyper3D）或 Blender+uv 环境，属**按需引入**而非默认依赖。当任务确实需要「分件/agent 操控/agent 调用生成」时，优先复用它们，而不是在 DSH 里自造一套。
+
 ## Common Failure Modes
 
 - Shipping raw DCC exports without cleanup
@@ -67,6 +91,7 @@ This guidance is engine-agnostic and can serve Three.js, React Three Fiber, Baby
 - Missing collision proxies
 - Scale or pivot mismatches between assets
 - Runtime code compensating for asset mistakes that should be fixed upstream
+- Fused/monolithic meshes with unnamed nodes — agent cannot target parts for later editing
 
 ## References
 
