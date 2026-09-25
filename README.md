@@ -2,10 +2,11 @@
 
 准备和优化浏览器游戏的 3D 资产（GLB/glTF 2.0）：Blender 清理导出、碰撞/LOD 设置、压缩、纹理打包与运行时校验。
 
-## 适用对象
+## 环境依赖
 
-- DeepSeek Harness（DSH）用户：一个可由 AI agent 按需自动加载的 skill，克隆即用、无需构建。
-- 准备浏览器游戏 3D 资产（GLB/glTF）的人
+- 操作系统：Windows
+- 运行时：无（纯指令型 skill，由 agent 直接执行）
+- 第三方软件：Blender
 
 ## 目录结构
 
