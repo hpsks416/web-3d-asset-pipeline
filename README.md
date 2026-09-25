@@ -1,23 +1,11 @@
 # web-3d-asset-pipeline
 
-Prepare and optimize browser-game 3D assets. Use when the user asks for GLB or glTF shipping work, including Blender cleanup and export, collision or LOD setup, compression, texture packaging, and runtime validation.
+准备和优化浏览器游戏的 3D 资产（GLB/glTF 2.0）：Blender 清理导出、碰撞/LOD 设置、压缩、纹理打包与运行时校验。
 
-## 这是什么
+## 适用对象
 
-DSH（DeepSeek Harness）skill —— 一个可由 AI agent 按需自动加载的能力单元。克隆到 skill 目录后，DSH 会依据上方描述自动发现并触发它，无需构建。
-
-## 安装
-
-最简单：用 [dsh-config](https://github.com/hpsks416/dsh-config) 的一键脚本 `install.ps1` 批量安装全部 skill。单个安装：
-
-    # GitHub
-    git clone https://github.com/hpsks416/web-3d-asset-pipeline.git "$env:USERPROFILE\.dsh\skills\web-3d-asset-pipeline"
-    # 或 Gitee（国内直连更快）
-    git clone https://gitee.com/hpsks416/web-3d-asset-pipeline.git "$env:USERPROFILE\.dsh\skills\web-3d-asset-pipeline"
-
-克隆后 DSH 会自动重新发现，无需重启。更新用：
-
-    git -C "$env:USERPROFILE\.dsh\skills\web-3d-asset-pipeline" pull
+- DeepSeek Harness（DSH）用户：一个可由 AI agent 按需自动加载的 skill，克隆即用、无需构建。
+- 准备浏览器游戏 3D 资产（GLB/glTF）的人
 
 ## 目录结构
 
@@ -36,9 +24,14 @@ DSH（DeepSeek Harness）skill —— 一个可由 AI agent 按需自动加载�
     ├── references\web-3d-asset-pipeline.md
     ├── references\webgl-debugging-and-performance.md
 
-## 依赖
+## 安装
 
-无运行时依赖，纯指令型 skill（由 agent 直接执行 Markdown 工作流）。
+    # GitHub
+    git clone https://github.com/hpsks416/web-3d-asset-pipeline.git "$env:USERPROFILE\.dsh\skills\web-3d-asset-pipeline"
+    # 或 Gitee（国内直连）
+    git clone https://gitee.com/hpsks416/web-3d-asset-pipeline.git "$env:USERPROFILE\.dsh\skills\web-3d-asset-pipeline"
+
+克隆后 DSH 自动重新发现，无需构建。
 
 ## License
 
